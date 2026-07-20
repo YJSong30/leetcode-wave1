@@ -6,24 +6,31 @@ Big O + Arrays
 # Python Syntax
 
 '''
-for loops:
+** for loops **
 
 for i in range(start, stop, step):
-    do ...
+    ...
 
 for i in range(len(nums)): # 0 -> len(nums) - 1
-    do ...
+    ...
 
 for num in nums:
-    do...
+    ...
 
-indexing in an array/list:
+** nested for loops **
+
+for i in range(len(nums)):
+    for j in range(len(nums)):
+        ...
+
+** indexing in a list **
 
         0 1 2 3 4
 nums = [1,2,3,4,5]
 nums[2] = 3
 
-adding stuff to a list:
+** adding stuff to a list **
+
 nums = []
 for i in range(5):
     nums.append(i)
@@ -36,18 +43,18 @@ nums = [0,1,2,3,4]
 
 '''
 
-Time Complexity
+** Time Complexity **
 
 nums = [1,2,3,4,5]
-for i in range(nums):
+for i in range(len(nums)):
     print(i)
 
 nums = [1,2,3,4,5,6,7,8,9,10]
-for i in range(nums):
+for i in range(len(nums)):
     print(i)
 
 
-Space Complexity
+** Space Complexity **
 
 nums = []
 for i in range(5):
@@ -55,10 +62,6 @@ for i in range(5):
 
 for i in range(10):
     nums.append(i)
-
-    
-
-        
 '''
 
 
