@@ -74,9 +74,11 @@ If it is impossible to have matching cards, return -1.
 
 Example 1:
                 0 1 2 3 4 5
-Input: cards = [3,4,2,3,4,3]    
+Input: cards = [3,4,2,3,4,3] 
+                      i   
             {
-                3:3,
+                card: index,
+                3: 0,
             }
 Output: 4
 Explanation: We can pick up the cards [3,4,2,3] which contain a matching pair of cards with value 3. 
@@ -101,9 +103,9 @@ def min_cards(cards):
     min_len = float('inf')
 
     for i in range(len(cards)):
-        card = cards[i]
+        card = cards[i] # 3
         if card in seen:
-            length = i - seen[card] + 1
+            length = i - seen[card] + 1 -> length = 3 - seen[3] + 1 = 3 - 0 + 1
             min_len = min(min_len, length)
         seen[card] = i
 
@@ -146,6 +148,15 @@ Example 1:
 Input: nums = [1,1,1,2,2,3], k = 2
 Output: [1,2]
 
+
+{
+    1: 3,
+    2: 2,
+    3: 1
+
+}
+
+
 Example 2:
 Input: nums = [1], k = 1
 
@@ -155,15 +166,6 @@ Example 3:
 Input: nums = [1,2,1,2,1,2,3,1,3,2], k = 2
 Output: [1,2]
 
-{
-    1: 3,
-    2: 2,
-    3: 1
-
-}
 
 [(3,1), (2,2), (1,3)] -> sort
-
-
-
 '''
