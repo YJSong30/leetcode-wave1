@@ -150,16 +150,6 @@ prev_sum = curr_sum - k
 
 Example 2:
 Input: nums = [1,2,3], k = 6
-                     ^
-               running_sum = 6
-               6 - 3 = 3
-
-{
-    0: 1,
-    1: 1,
-    3: 1,
-    6: 1
-}
 
 res = 2
 Output: 2
@@ -169,21 +159,6 @@ Constraints:
 1 <= nums.length <= 2 * 104
 -1000 <= nums[i] <= 1000
 -107 <= k <= 107
-
-prefix_sum + hashmap
-
-[0,0,0]
- 0 1 2
-
-[0]
-[0]
-[0]
-
-k = 0
-3 subarrays equals k
-
-sum(1,3)
-sum between prefixes -> prefix_sum[3+1] - prefix_sum[1]
 
 def subarray_sum(nums, k):
     res = 0
