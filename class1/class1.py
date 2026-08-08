@@ -13,6 +13,7 @@ for i in range(start, stop, step):
 
 for i in range(len(nums)): # 0 -> len(nums) - 1
     ...
+    nums[i]
 
 for num in nums:
     ...
@@ -27,6 +28,9 @@ for i in range(len(nums)):
 
         0 1 2 3 4
 nums = [1,2,3,4,5]
+                i
+                j
+
 nums[2] = 3
 
 ** adding stuff to a list **
