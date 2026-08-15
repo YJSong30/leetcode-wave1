@@ -28,8 +28,6 @@ for i in range(len(nums)):
 
         0 1 2 3 4
 nums = [1,2,3,4,5]
-                i
-                j
 
 nums[2] = 3
 
@@ -53,9 +51,9 @@ nums = [1,2,3,4,5]
 for i in range(len(nums)): # execute 5 times
     print(i)
 
-nums = [1,2,3,4,5,6,7,8,9,10]
+nums = [1,2,3,4,5,6,7,8,9,10...100]
 
-for i in range(len(nums)): # execute 10 times
+for i in range(len(nums)): # execute 100 times
     print(i)
 
 n = length of input
@@ -94,8 +92,8 @@ You can return the answer in any order.
 Example 1:
                0 1 2
 Input: nums = [2,7,11,15,...40,50], target = 90
-                             i 
-                               j
+                             i
+                                j
 
 Output: [0,1]
 Explanation: Because nums[0] + nums[1] == 9, we return [0, 1].
@@ -122,7 +120,7 @@ of all the elements in the subarray is strictly less than k
 
 Example 1:
 Input: nums = [10, 5, 2, 6], k = 100
-                   i
+                i
                    j
 
 Output: 8
@@ -185,8 +183,8 @@ k = 50
 
 time complexity: o(n * k)
 
-
-              0.  1. 2 3 4.  5
+[1,2,3,4,5]
+              0.  1. 2 3  4  5
 prefix_sum = [0, 1, 3, 6, 10, 15]
 
     l r

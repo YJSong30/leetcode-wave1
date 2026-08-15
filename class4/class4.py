@@ -168,10 +168,19 @@ Example 3:
 Input: piles = [30,11,23,4,20], h = 6
 Output: 23
 
-
 def koko_brute_force(piles, h):
-    pass
-    
+    for i in range(1, max(piles) + 1):
+            hours = 0
+            for pile in piles:
+                hours += math.ceil(pile / i)
+                # pile / i (speed) = banana / (bananas/hrs) = hrs
+                print(hours)
+                
+            if hours <= h:
+                return i
+
+# t.c: o(m * n) m = number of piles, n = speed
+# s.c: o(1)
 
 
 def koko_optimized(piles, h):
