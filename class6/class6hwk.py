@@ -16,26 +16,29 @@ Explanation: Replace the one 'A' in the middle with 'B' and form "AABBBBA".
 The substring "BBBB" has the longest repeating letters, which is 4.
 There may exists other ways to achieve this answer too.
 
+'''
 from collections import defaultdict
-def longest_char_replace(s, k):
+def longest_repeating_char_replace(s, k):
     s_freq = defaultdict(int)
-    l = 0
     longest_len = float('-inf')
+    l = 0
+    max_freq = float('-inf')
 
     for r in range(len(s)):
-        char = s[r]
-        s_freq[char] += 1
+        curr_char = s[r]
+        s_freq[curr_char] += 1
+        max_freq = max(max_freq, s_freq[curr_char])
 
-        # break condition
-        while (r - l + 1) - max(s_freq.values()) > k:
-            s_freq[s[l]] -= 1
+        while (r - l + 1) - max_freq > k: # break window
+            l_char = s[l]
+            s_freq[l_char] -= 1
             l += 1
 
         longest_len = max(longest_len, r - l + 1)
     
     return longest_len
 
-def longest_char_replace_optimized(s, k):
+def longest_repeating_char_replace_optimized(s, k):
     s_freq = defaultdict(int)
     l = 0
     max_freq = 0
@@ -56,9 +59,10 @@ def longest_char_replace_optimized(s, k):
     
     return longest_len
 
-time complexity: o(n)
-space complexity: o(26) -> o(1) 
+# time complexity: o(n)
+# space complexity: o(26) -> o(1) 
 
+'''
 567. Permutation in String
 Given two strings s1 and s2, return true if s2 contains a permutation of s1, or false otherwise.
 In other words, return true if one of s1's permutations is the substring of s2.
@@ -69,10 +73,45 @@ Output: true
 Explanation: s2 contains one permutation of s1 ("ba").
 
 Example 2:
-Input: s1 = "ab", s2 = "eidboaoo"
+Input: s1 = "ti", s2 = "ajwiunki"
 Output: false
+'''
+from collections import Counter
+def permutation_str_hashmap(s1, s2):
+    s1_freq = Counter(s1)
+    s2_freq = defaultdict(int)
 
-def permutation_str(s1, s2):
+    if len(s1) > len(s2):
+        return False
+    
+    for i in range(len(s1)):
+        s2_freq[s2[i]] += 1
+    
+    # print(s1_freq, s2_freq)
+    if s1_freq == s2_freq:
+        return True
+    
+    l = 0
+    
+    for r in range(len(s1), len(s2)):
+        l_char = s2[l]
+        s2_freq[l_char] -= 1
+        if s2_freq[l_char] == 0:
+            del s2_freq[l_char]
+        
+        s2_freq[s2[r]] += 1
+        l += 1
+        
+        if s2_freq == s1_freq:
+            return True
+        
+    return False
+
+print(permutation_str_hashmap("ab","eidbaooo"))
+print(permutation_str_hashmap("ti","ajwiutki"))
+
+
+def permutation_str_lists(s1, s2):
     if len(s1) > len(s2):
             return False
     
@@ -99,13 +138,12 @@ def permutation_str(s1, s2):
     
     return False
 
-hashmap verison:
+# hashmap verison:
 
-    s1_freq = { a:1,
-                b:1 }
+#     s1_freq = { a:1,
+#                 b:1 }
 
-    s2_freq = {  b:1
-                 d: 1 }
+#     s2_freq = {  b:1
+#                  d: 1 }
 
-    if s1_freq == s2_freq: return True
-'''
+#     if s1_freq == s2_freq: return True
