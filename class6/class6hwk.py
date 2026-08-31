@@ -38,27 +38,6 @@ def longest_repeating_char_replace(s, k):
     
     return longest_len
 
-def longest_repeating_char_replace_optimized(s, k):
-    s_freq = defaultdict(int)
-    l = 0
-    max_freq = 0
-    longest_len = float('-inf')
-
-    for r in range(len(s)):
-        char = s[r]
-        s_freq[char] += 1
-
-        max_freq = max(max_freq, s_freq[char])
-
-        # break condition
-        while (r - l + 1) - max_freq > k:
-            s_freq[s[l]] -= 1
-            l += 1
-
-        longest_len = max(longest_len, r - l + 1)
-    
-    return longest_len
-
 # time complexity: o(n)
 # space complexity: o(26) -> o(1) 
 

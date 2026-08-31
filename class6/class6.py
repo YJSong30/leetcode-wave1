@@ -1,4 +1,5 @@
-'''
+from collections import Counter, defaultdict
+
 class Solution:
     def minWindow(self, s: str, t: str) -> str:
         t_freq = Counter(t)
@@ -7,7 +8,7 @@ class Solution:
         currently_have_freq = 0
         need_freq = len(t_freq)
 
-        smallest_substr = ""
+        # smallest_substr = ""
         smallest_substring_len = float('inf')
         l_pointer = 0
         r_pointer = 0
@@ -37,7 +38,7 @@ class Solution:
                 
                 # 3) if the frequency of that char decreases (i.e less than char in t_freq, then decrement currently_have_freq)
                 if l_char in t_freq and s_freq[l_char] < t_freq[l_char]:
-                    currently_have_freq -=1
+                    currently_have_freq -= 1
 
                 # 4) increment l pointer
                 l += 1
@@ -53,5 +54,3 @@ class Solution:
 
 # curr_str = ""
 # curr_str = "boba"
-
-'''
