@@ -3,6 +3,10 @@
 
 A stack follows: LIFO = Last In, First Out
 
+LIFO
+FIFO
+
+
 2. Stack in Python
 
 You normally just use a list:
@@ -59,6 +63,26 @@ Input: s = "(]"
 Output: false
 '''
 
+class Solution:
+    def isValid(self, s: str) -> bool:
+        pair_brackets = {
+            ")": "(",
+            "]": "[",
+            "}": "{"
+        }
+
+        stack = []
+
+        for char in s:
+            print(char)
+            if char not in pair_brackets:
+                stack.append(char)
+            else: # closing bracket
+                if not stack or stack[-1] != pair_brackets[char]:
+                    return False
+                stack.pop()
+        
+        return len(stack) == 0
 
 '''
 739) Given an array of integers temperatures represents the daily temperatures, 
@@ -78,3 +102,18 @@ Example 3:
 Input: temperatures = [30,60,90]
 Output: [1,1,0]
 '''
+
+class Solution:
+    def dailyTemperatures(self, temperatures: List[int]) -> List[int]:
+        stack = []
+        res = [0] * len(temperatures)
+
+        for i, temp in enumerate(temperatures):
+            
+            while stack and temperatures[stack[-1]] < temp:
+                popped_index = stack.pop()
+                res[popped_index] = i - popped_index
+            
+            stack.append(i)
+        
+        return res
