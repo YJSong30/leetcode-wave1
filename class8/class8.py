@@ -18,9 +18,10 @@ Each individual item is called a node.
 2. Node
 Typical LeetCode node:
 class ListNode:
-    def __init__(self, val=0, next=None):
+    def __init__(self, val=0, next=None, prev=None):
         self.val = val
         self.next = next
+        self.prev = prev
 
 Each node contains:
 - node.val (the value) and node.next (the next node)

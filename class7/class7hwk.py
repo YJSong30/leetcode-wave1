@@ -29,9 +29,42 @@ minStack.pop();
 minStack.top();    // return 0
 minStack.getMin(); // return -2
 
+'''
+class MinStack:
 
+    def __init__(self):
+        self.stack = []
+        self.min_stack = []
 
+    def push(self, value: int) -> None:
+        # regular stack
+        self.stack.append(value)
 
+        # min stack
+        if not self.min_stack:
+            self.min_stack.append(value)
+        else:
+            self.min_stack.append(min(value, self.min_stack[-1]))
+        
+        # elif self.min_stack[-1] >= value:
+        #     self.min_stack.append(value)
+
+    def pop(self) -> None:
+        val = self.stack.pop()
+
+        # how to know when to pop from min stack?
+        if val == self.min_stack[-1]:
+            self.min_stack.pop()
+
+    def top(self) -> int:
+        if self.stack:
+            return self.stack[-1]
+
+    def getMin(self) -> int:
+        if self.min_stack:
+            return self.min_stack[-1]
+
+'''
 
 150) Evaluate Reverse Polish Notation
 
@@ -66,4 +99,33 @@ Explanation: ((10 * (6 / ((9 + 3) * -11))) + 17) + 5
 = (0 + 17) + 5
 = 17 + 5
 = 22
+
 '''
+def polish_notation(tokens):
+    operators = {"+","-","*","/"} # o(1)
+    stack = [] # o(n)
+
+    for token in tokens:
+        if token in operators:
+            # do something with that operator with the previous two numbers
+            b = stack.pop()
+            a = stack.pop()
+
+            if token == "-":
+                res = a - b
+            elif token == "+":
+                res = a + b
+            elif token == "*":
+                res = a * b
+            else:
+                res = int(a/b)
+
+            stack.append(res)
+
+        else: # number
+            stack.append(int(token))
+
+    return stack[-1]
+
+# t.c = o(n)
+# s.c = o(n)
