@@ -56,8 +56,7 @@ With an array:
 for num in nums:
 
 With a linked list, you usually do:
-
-current = head
+current = head 
 while current:
     print(current.val)
     current = current.next
@@ -98,6 +97,18 @@ Example 3:
 Input: head = []
 Output: []
 
+def reverse_linked_list(head):
+    prev = None
+    curr = head
+
+    while curr:
+        next_node = curr.next
+        curr.next = prev
+        prev = curr
+        curr = next_node
+
+    return prev
+
 21) You are given the heads of two sorted linked lists list1 and list2.
 Merge the two lists into one sorted list. The list should be made by splicing together the nodes of the first two lists.
 Return the head of the merged linked list.
@@ -113,6 +124,29 @@ Output: []
 Example 3:
 Input: list1 = [], list2 = [0]
 Output: [0]
+
+class Solution:
+    def mergeTwoLists(self, list1: Optional[ListNode], list2: Optional[ListNode]) -> Optional[ListNode]:
+        dummy = ListNode()
+        curr = dummy
+
+        while list1 and list2:
+            if list2.val >= list1.val:
+                curr.next = list1
+                list1 = list1.next
+            else:
+                curr.next = list2
+                list2 = list2.next
+            
+            curr = curr.next
+        
+        # connecting remaining nodes
+        if list1:
+            curr.next = list1
+        else:
+            curr.next = list2
+        
+        return dummy.next
 
 19) Given the head of a linked list, remove the nth node from the end of the list and return its head.
 
