@@ -1,4 +1,40 @@
 '''
+Doubly (Double Sided) Linked List
+
+A normal singly linked list has: A → B → C
+Each node only knows: node.next
+
+A doubly linked list has:
+
+A ⇄ B ⇄ C
+
+Each node knows:
+
+node.prev
+node.next
+
+Imagine we need to remove B.
+Because B knows both neighbors:
+
+A ⇄ B ⇄ C
+
+we can directly connect:
+
+A ⇄ C
+
+Code:
+node.prev.next = node.next
+node.next.prev = node.prev
+
+That's: O(1)
+No searching required.
+
+class ListNode:
+    def init(self, val=0, next=None, prev=None):
+        self.val = val
+        self.prev = prev
+        self.next = next
+        
 146) LRU cache
 
 Design a data structure that follows the constraints of a Least Recently Used (LRU) cache.

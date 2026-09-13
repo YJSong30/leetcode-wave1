@@ -163,20 +163,20 @@ Input: head = [1,2], n = 1
 Output: [1]
 
 def removeNthFromEnd(head, n):
-    dummy = ListNode(0, head)
+    dummy = ListNode()
+    dummy.next = head
 
     slow = dummy
     fast = dummy
 
-    for i in range(n + 1):
+    for i in range(n+1):
         fast = fast.next
-
+    
     while fast:
         slow = slow.next
         fast = fast.next
-
+    
     slow.next = slow.next.next
-
     return dummy.next
 
 23) You are given an array of k linked-lists lists, each linked-list is sorted in ascending order.
@@ -217,9 +217,9 @@ class Solution:
 
         for i in range(1, len(lists)):
             res = self.mergeTwoLists(res, lists[i])
-        
-        return res
 
+        return res
+            
     def mergeTwoLists(self, list1: Optional[ListNode], list2: Optional[ListNode]) -> Optional[ListNode]:
         dummy = ListNode()
         curr = dummy
