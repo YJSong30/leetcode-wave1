@@ -34,16 +34,17 @@ class ListNode:
         self.val = val
         self.prev = prev
         self.next = next
-        
+
 146) LRU cache
 
 Design a data structure that follows the constraints of a Least Recently Used (LRU) cache.
 
 Implement the LRUCache class:
 
-LRUCache(int capacity) Initialize the LRU cache with positive size capacity.
-int get(int key) Return the value of the key if the key exists, otherwise return -1.
-void put(int key, int value) Update the value of the key if the key exists. Otherwise, add the key-value pair to the cache. If the number of keys exceeds the capacity from this operation, evict the least recently used key.
+- LRUCache(int capacity) Initialize the LRU cache with positive size capacity.
+- int get(int key) Return the value of the key if the key exists, otherwise return -1.
+- void put(int key, int value) Update the value of the key if the key exists. Otherwise, add the key-value pair to the cache. 
+If the number of keys exceeds the capacity from this operation, evict the least recently used key.
 The functions get and put must each run in O(1) average time complexity.
 
 Example 1:
@@ -74,23 +75,73 @@ Constraints:
 At most 2 * 105 calls will be made to get and put.
 
 
+class Node:
+    def __init__(self, key, val):
+        self.key = key
+        self.val = val
+        self.prev = None
+        self.next = None
+
 class LRUCache:
 
     def __init__(self, capacity: int):
+        self.capacity = capacity
+        self.cache = {}
+
+        self.LRU = Node(0, 0)
+        self.MRU = Node(0, 0)
+
+        self.LRU.next = self.MRU
+        self.MRU.prev = self.LRU
         
+    def remove_node(self, node):
+        prev_node = node.prev
+        next_node = node.next
+        prev_node.next = next_node
+        next_node.prev = prev_node
+    
+    def add_node(self, node):
+        prev_node = self.MRU.prev
+        prev_node.next = node
+
+        node.prev = prev_node
+        node.next = self.MRU
+        self.MRU.prev = node
+
 
     def get(self, key: int) -> int:
-        
+        if key not in self.cache:
+            return -1
+        node = self.cache[key]
+        self.remove_node(node)
+        self.add_node(node)
+        return node.val
 
     def put(self, key: int, value: int) -> None:
-        
+        # if the key exists in self.cache, update the val
+        if key in self.cache:
+            node = self.cache[key]
+            node.val = value
+            self.remove_node(node)
+            self.add_node(node)
+            return
+
+        # if key not in self.cache
+        if key not in self.cache:
+            new_node = Node(key, value)
+            self.add_node(new_node)
+            self.cache[key] = new_node
+
+        # if len(cache) > capacity, remove LRU node and from cache
+        if len(self.cache) > self.capacity:
+            lru_node = self.LRU.next
+            self.remove_node(lru_node)
+            del self.cache[lru_node.key]
 
 
 # Your LRUCache object will be instantiated and called as such:
 # obj = LRUCache(capacity)
 # param_1 = obj.get(key)
 # obj.put(key,value)
-
-
 
 '''
