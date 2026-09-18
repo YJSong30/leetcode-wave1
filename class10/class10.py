@@ -17,7 +17,7 @@ Recursion + Trees
 - Binary tree = max 2 children
 
 5. Tree Array Representation
-- Example: [1, 2, 3, 4, 5]
+- Example: [1, 2, 3, 4, 5] 
 
 6. Parent/Child Array Equation
 - Left = 2i + 1
@@ -44,4 +44,14 @@ Recursion + Trees
 - val
 - left
 - right
+
+
+def maxDepth(root):
+    if not root:
+        return 0
+
+    left = maxDepth(root.left)
+    right = maxDepth(root.right)
+
+    return max(left,right) + 1
 '''
