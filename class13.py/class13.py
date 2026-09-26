@@ -30,7 +30,7 @@ BFS uses a queue.
 A queue follows: FIFO = First In, First Out
 
 In Python, we usually use:
-from collections import deque
+from collections import deque, defaultdict, Counter
 
 Create a queue:
 queue = deque()
@@ -80,7 +80,29 @@ Output: []
 #         self.right = right
 class Solution:
     def levelOrder(self, root: TreeNode | None) -> list[list[int]]:
-        pass
+        if not root:
+            return []
+        
+        queue = deque([root])
+        res = []
+
+        while queue:
+            curr_len = len(queue)
+            curr_list = []
+
+            for i in range(curr_len):
+                node = queue.popleft()
+                if node.left:
+                    queue.append(node.left)
+                if node.right:
+                    queue.append(node.right)
+                
+                curr_list.append(node.val)
+            
+            res.append(curr_list)
+        
+        return res
+
 
 
 199. Binary Tree Right Side View
@@ -104,7 +126,26 @@ Output: []
 
 class Solution:
     def rightSideView(self, root: TreeNode | None) -> list[int]:
-        pass
+        if not root:
+            return []
+        
+        queue = deque([root])
+        res = []
+
+        while queue:
+            curr_len = len(queue)
+
+            for i in range(curr_len):
+                node = queue.popleft()
+                if node.left:
+                    queue.append(node.left)
+                if node.right:
+                    queue.append(node.right)
+                
+                if i == curr_len - 1:
+                    res.append(node.val)
+        
+        return res
 
 
 '''
