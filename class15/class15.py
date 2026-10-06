@@ -9,9 +9,9 @@ Instead of each node storing a whole number like a BST:
 
 each Trie node usually represents a character.
 If we insert:
-cat
-car
-dog
+- cat
+- car
+- dog
 
 we get roughly:
 root
@@ -70,7 +70,18 @@ class Trie:
 
         return True
 
+trie = Trie()
+
+trie.insert("apple")
+
+print(trie.search("apple"))     # True
+print(trie.search("app"))       # False
+print(trie.startsWith("app"))   # True
+
+trie.insert("app")
+print(trie.search("app"))       # True
         
+
 1268. Search Suggestions System
 
 You are given an array of strings products and a string searchWord.
@@ -94,5 +105,5 @@ Explanation: The only word "havana" will be always suggested while typing the se
 class Solution:
     def suggestedProducts(self, products: list[str], searchWord: str) -> list[list[str]]:
         pass
-        
+     
 '''
