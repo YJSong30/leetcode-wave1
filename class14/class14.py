@@ -103,9 +103,21 @@ Output: []
 #         self.val = val
 #         self.left = left
 #         self.right = right
+
 class Solution:
     def searchBST(self, root: TreeNode | None, val: int) -> TreeNode | None:
-        pass
+        current = root
+
+        while current:
+            if current.val == val:
+                return current
+
+            if val < current.val:
+                current = current.left
+            else:
+                current = current.right
+        
+        return None
         
 
 230) Kth Smallest in a BST
@@ -129,7 +141,26 @@ Output: 3
 #         self.right = right
 class Solution:
     def kthSmallest(self, root: TreeNode | None, k: int) -> int:
-        pass
-        
+        self.count = 0
+        self.res = None
+
+        def inorder(node):
+            if not node:
+                return
+
+
+            inorder(node.left)
+            
+            # do some work here
+            self.count += 1
+
+            if self.count == k:
+                self.res = node.val
+                return
+
+            inorder(node.right)
+
+        inorder(root)
+        return self.res
 
 '''
