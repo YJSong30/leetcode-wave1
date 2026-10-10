@@ -30,7 +30,8 @@ That's the entire reason Tries are useful.
 class TrieNode:
     def __init__(self):
         self.children = {}
-        self.is_end = False
+        # self.is_end = False
+        self.words = []
 
 class Trie:
 
@@ -103,8 +104,46 @@ Input: products = ["havana"], searchWord = "havana"
 Output: [["havana"],["havana"],["havana"],["havana"],["havana"],["havana"]]
 Explanation: The only word "havana" will be always suggested while typing the search word.
 
+class TrieNode:
+    def __init__(self):
+        self.children = {}
+        self.words = []
+
+class Trie:
+    def __init__(self):
+        self.root = TrieNode()
+
+    def insert(self, product):
+        node = self.root
+
+        for char in product:
+            if char not in node.children:
+                node.children[char] = TrieNode()
+
+            node = node.children[char]
+            if len(node.words) < 3:
+                node.words.append(product)
+
 class Solution:
     def suggestedProducts(self, products: list[str], searchWord: str) -> list[list[str]]:
-        pass
-     
+        products.sort()
+        trie = Trie()
+        res = []
+
+        for product in products:
+            trie.insert(product)
+        
+        node = trie.root
+        flag = True
+
+        for char in searchWord:
+            if flag and char in node.children:
+                node = node.children[char]
+                res.append(node.words)
+            else:
+                flag = False
+                res.append([])
+
+        return res
+
 '''
