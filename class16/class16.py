@@ -122,9 +122,9 @@ import timer
 
 import heapq
 def topKFrequent_optimized(nums, k):
-    nums_freq = Counter(nums)
+    nums_freq = Counter(nums) # o(m) where m represents the number of unique keys
 
-    heap = []
+    heap = [] # o(k) where k is the input k which represents our heap size
     
     for num, freq in nums_freq.items() :
         heapq.heappush(heap, (freq, num))
@@ -137,6 +137,8 @@ def topKFrequent_optimized(nums, k):
         res.append(num)
 
     return res
+
+    # s.c = o(m + k)
 
 print(topKFrequent([1,2,1,2,1,2,3,1,3,2], 2)) # [2,1]
 print(topKFrequent_optimized([1,2,1,2,1,2,3,1,3,2], 2)) # [2,1]
