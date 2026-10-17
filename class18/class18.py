@@ -54,7 +54,7 @@ We typically explore four directions:
 
 DFS steps:
 1. Check the base case (out of bounds, invalid, or visited).
-2. Mark the current cell as visited.
+2. Mark the current cell as visited. 
 3. Recursively explore neighboring cells.
 4. Return a result if the problem requires one.
 
@@ -76,11 +76,43 @@ You are given an m x n binary matrix grid, where:
 You start at the top-left corner (0, 0) and want to reach the bottom-right corner (m - 1, n - 1).
 You may move in four directions: up, down, left, or right.
 You cannot visit the same cell more than once in a single path.
-Return the total number of unique valid paths from the starting cell to the destination.
+Return the total number of unique valid paths from the starting cell to the destination. 
 
 class Solution:
     def countPaths(self, grid: list[list[int]]) -> int:
-        pass
+        rows = len(grid)
+        cols = len(grid[0])
+        visited = set()
+
+        def dfs(r, c):
+            # 1) writing the base cases (4)
+            if min(r, c) < 0 or r == rows or c == cols or grid[r][c] == 1 or (r,c) in visited:
+                return 0
+            
+            if r == rows - 1 and c == cols - 1:
+                return 1
+
+            # 2) add the cell that we're visitng at the current moment into the visited set
+            visited.add((r,c))
+
+            # 3) dfs in all four directions
+            count = 0
+
+            count += dfs(r-1,c) # up
+            count += dfs(r+1,c) # down
+            count += dfs(r, c-1) # left
+            count += dfs(r, c+1) # right
+
+            # 4) remove that cell from the visited set
+            visited.remove((r,c))
+
+            # 5) return something
+            return count
+        
+        return dfs(0, 0)
+
+# t.c : o(3^(r*c))
+# s.c : o(r*c)
         
 
 2) Word Search (79)
