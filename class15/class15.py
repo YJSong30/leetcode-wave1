@@ -145,5 +145,4 @@ class Solution:
                 res.append([])
 
         return res
-
 '''
