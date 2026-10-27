@@ -45,33 +45,26 @@ Output: [[],[0]]
 
 class Solution:
     def subsets(self, nums: list[int]) -> list[list[int]]:
-        pass
+        res = []
+
+        def dfs(cur_list, i):
+            # base case
+            if i == len(nums):
+                res.append(cur_list[:])
+                return
+            
+            # work
+            # take
+            cur_list.append(nums[i])
+            dfs(cur_list, i+1)
+            cur_list.pop()
+
+            # skip  
+            dfs(cur_list, i+1)
+
+        dfs([], 0)
+        return res
         
-
-
-
-46) Permutations
-
-Given an array nums of distinct integers, return all the possible permutations. You can return the answer in any order.
-Example 1:
-
-Input: nums = [1,2,3]
-Output: [[1,2,3],[1,3,2],[2,1,3],[2,3,1],[3,1,2],[3,2,1]]
-Example 2:
-
-Input: nums = [0,1]
-Output: [[0,1],[1,0]]
-Example 3:
-
-Input: nums = [1]
-Output: [[1]]
-
-class Solution:
-    def permute(self, nums: list[int]) -> list[list[int]]:
-        pass
-        
-
-
 
 39) Combination Sum
 
@@ -98,10 +91,28 @@ Output: []
 
 class Solution:
     def combinationSum(self, candidates: list[int], target: int) -> list[list[int]]:
-        pass
-        
+        nums = candidates
+        res = []
 
-        
+        def dfs(cur_list, i, cur_sum):
+            if cur_sum == target:
+                res.append(cur_list[:])
+                return
+            
+            if cur_sum > target or i == len(nums):
+                return
+
+            # work
+            # take
+            cur_list.append(nums[i])
+            dfs(cur_list, i, cur_sum + nums[i])
+            cur_list.pop() 
+
+            # skip
+            dfs(cur_list, i + 1, cur_sum)
+
+        dfs([], 0, 0)
+        return res
  
 
 '''
