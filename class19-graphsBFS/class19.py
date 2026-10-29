@@ -192,11 +192,11 @@ class Solution:
             queue_len = len(queue)
             time += 1
             for i in range(queue_len):
-                row, col = queue.popleft()
+                r, c = queue.popleft()
 
                 for j, k in directions:
-                    dr = row + j
-                    dc = col + k
+                    dr = r + j
+                    dc = c + k
 
                     if min(dr,dc) < 0 or dr == rows or dc == cols or grid[dr][dc] == 0 or grid[dr][dc] == 2:
                         continue
