@@ -177,87 +177,6 @@ dp[i] = Fibonacci number at index i.
 Step 2: Build the DP array
 Use the recurrence relationship:
 
-d
-p
-[
-i
-]
-=
-d
-p
-[
-i
-−
-1
-]
-+
-d
-p
-[
-i
-−
-2
-]
-dp[i]=dp[i−1]+dp[i−2]
-
-python
-for i in range(2, n + 1):
-    dp[i] = dp[i - 1] + dp[i - 2]
-Step 3: Return the answer
-
-python
-return dp[n]
-Example walkthrough:
-
-For n = 5:
-
-Index
-
-Calculation
-
-Value
-
-dp[0]
-
-Base case
-
-0
-
-dp[1]
-
-Base case
-
-1
-
-dp[2]
-
-0 + 1
-
-1
-
-dp[3]
-
-1 + 1
-
-2
-
-dp[4]
-
-2 + 1
-
-3
-
-dp[5]
-
-3 + 2
-
-5
-
-Final DP array:
-
-
-python
-dp = [0, 1, 1, 2, 3, 5]
 Important:
 
 Start with known base cases.
@@ -270,7 +189,6 @@ No recursion is required.
 
 Complexity
 Time: O(n)
-
 Space: O(n)
 
 3. MEMOIZATION VS TABULATION
@@ -361,4 +279,243 @@ Examples:
 - Choose the minimum or maximum result.
 
 Not every problem with choices requires DP. Look for overlapping subproblems and reusable states.
+'''
+
+'''
+brute force dfs fib:
+
+def fib(n):
+    if n <= 1:
+        return n
+
+    return fib(n - 1) + fib(n - 2)
+
+t.c: o(n^2)
+s.c: o(n)
+
+top-down dp (memoization):
+
+def fib(n):
+    cache = {}
+
+    def dfs(n):
+        if n <= 1:
+            return n
+
+        if n in cache:
+            return cache[n]
+
+        cache[n] = dfs(n - 1) + dfs(n - 2)
+
+        return cache[n]
+
+    return dfs(n)
+
+t.c: o(n) - each subproblem calculated once
+s.c: o(n) - cache + recursion stack
+
+bottom-up dp (tabulation):
+
+def fib(n):
+    if n <= 1:
+        return n
+
+    dp = [0] * (n + 1)
+    dp[1] = 1
+
+    for i in range(2, n + 1):
+        dp[i] = dp[i - 1] + dp[i - 2]
+
+    return dp[n]
+
+t.c: o(n) - each subproblem calculated once
+s.c: o(n) - cache + recursion stack
+
+bottm-up dp (tabulation) space optimized:
+
+def fib(n):
+    if n <= 1:
+        return n
+
+    prev2 = 0
+    prev1 = 1
+
+    for i in range(2, n + 1):
+        curr = prev1 + prev2
+        prev2 = prev1
+        prev1 = curr
+
+    return prev1
+
+t.c: o(n)
+s.c: o(1) - only two variables needed
+
+'''
+
+'''
+494) target sum
+
+class Solution:
+    def findTargetSumWays(self, nums: list[int], target: int) -> int:
+        def dfs(i, curr_sum):
+            if i == len(nums):
+                return 1 if curr_sum == target else 0
+
+            # add choice
+            add = dfs(i + 1, curr_sum + nums[i])
+
+            # subtract choice
+            subtract = dfs(i + 1, curr_sum - nums[i])
+
+            # count total ways
+            return add + subtract
+
+        return dfs(0, 0)
+
+t.c: o(2^n)
+s.c: o(n)
+
+top-down dp memoization:
+
+class Solution:
+    def findTargetSumWays(self, nums: List[int], target: int) -> int:
+        if not nums:
+            return 0
+        
+        cache = {} # {(i, cur_sum: 0 or 1)}
+        
+        def dfs(i, cur_sum):
+            if i == len(nums):
+                return 1 if curr_sum == target else 0
+                
+            if (i, cur_sum) in cache:
+                return cache[(i, cur_sum)]
+        
+            add = dfs(i + 1, curr_sum + nums[i])
+            subtract = dfs(i + 1, curr_sum - nums[i]) 
+
+            cache[(i, curr_sum)] = add + subtract
+
+            return cache[(i, cur_sum)]
+        
+        return dfs(0, 0)
+
+t.c: o(2^n)
+s.c: o(n)
+
+'''
+
+
+'''
+def climbStairs(n):
+    def dfs(i):
+        if i <= 1: return 1
+
+        return dfs(i - 1) + dfs(i - 2)
+
+    return dfs(n)
+
+- t.c.: o(2^n) — Recalculates the same subproblems.
+- t.c: o(2^n) — Recursion stack.
+
+def climbStairs(n):
+    cache = {}
+
+    def dfs(i):
+        if i <= 1: return 1
+
+        if i in cache:
+            return cache[i]
+
+        cache[i] = dfs(i - 1) + dfs(i - 2)
+
+        return cache[i]
+
+    return dfs(n)
+
+- t.c.: o(n) — each stair's answer is calculated once
+- s.c: o(n) — cache + recursion stack
+
+def climbStairs(n):
+    if n <= 1: return 1
+
+    dp = [0] * (n + 1)
+
+    dp[0] = 1
+    dp[1] = 1
+
+    for i in range(2, n + 1):
+        dp[i] = dp[i - 1] + dp[i - 2]
+
+    return dp[n]
+
+- t.c.: o(n) — each stair's answer is calculated once
+- s.c: o(n) — cache + recursion stack
+
+'''
+
+'''
+198) House Robber
+
+class Solution:
+    def rob(self, nums: list[int]) -> int:
+        def dfs(i):
+            if i == 0: 
+                return 0
+            if i == 1: 
+                return nums[0]
+
+            skip = dfs(i - 1)
+
+            take = nums[i - 1] + dfs(i - 2)
+
+            return max(skip, take)
+
+        return dfs(len(nums))
+
+class Solution:
+    def rob(self, nums: list[int]) -> int:
+        cache = {}
+
+        def dfs(i):
+            # Base cases
+            if i == 0: 
+                return 0
+            if i == 1: 
+                return nums[0]
+
+            if i in cache: 
+                return cache[i]
+
+            skip = dfs(i - 1)
+            take = nums[i - 1] + dfs(i - 2)
+
+            cache[i] = max(skip, take)
+
+            return cache[i]
+
+        return dfs(len(nums))
+
+        
+bottom up dp tabulation:
+
+class Solution:
+    def rob(self, nums: list[int]) -> int:
+        if not nums: 
+            return 0
+
+        n = len(nums)
+        dp = [0] * (n + 1)
+
+        dp[0] = 0
+        dp[1] = nums[0]
+
+        for i in range(2, n + 1):
+            skip = dp[i - 1]
+            take = nums[i - 1] + dp[i - 2]
+
+            dp[i] = max(skip, take)
+
+        return dp[n]
+
 '''
